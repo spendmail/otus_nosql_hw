@@ -12,7 +12,7 @@
 ```
 # docker pull mongo:4.4.17
 # docker images
-mongo 4.4.17 af86910c16da 2 weeks ago 438MB
+> mongo 4.4.17 af86910c16da 2 weeks ago 438MB
 ```
 
 2) **Запуск контейнера**
@@ -20,7 +20,7 @@ mongo 4.4.17 af86910c16da 2 weeks ago 438MB
 # mkdir -p ~/mongodata
 # docker run -it -v ~/mongodata:/data/db -p 27017:27017 --name mongodb -d mongo:4.4.17
 # docker ps
-85dbd4a12079 mongo:4.4.17 "docker-entrypoint.s…" 8 seconds ago Up 7 seconds 0.0.0.0:27017->27017/tcp, :::27017->27017/tcp mongodb
+> 85dbd4a12079 mongo:4.4.17 "docker-entrypoint.s…" 8 seconds ago Up 7 seconds 0.0.0.0:27017->27017/tcp, :::27017->27017/tcp mongodb
 ```
 
 3) **Создание пользователя**
@@ -69,8 +69,14 @@ db.customers.updateMany({"customer_id": "0202"}, {$set: {"genre": "Female"}})
 
 8) **Создание индекса и поиск**
 ```
-db.customers.createIndex({"customer_id": "text"})
-db.customers.find({$text: {$search: "0201" }  } )
+db.customers.explain().find({"customer_id": "0200"})
+db.customers.createIndex({"customer_id": 1}, {unique: true})
+db.customers.explain().find({"customer_id": "0200"})
+> "queryPlanner" : {
+>     "winningPlan" : {
+>         "stage" : "FETCH",
+>         "inputStage" : {
+>             "stage" : "IXSCAN",
 ```
 
 9) **Удаление данных**
