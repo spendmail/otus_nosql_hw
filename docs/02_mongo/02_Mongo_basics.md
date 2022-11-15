@@ -7,14 +7,77 @@
  - заполнить данными;
  - написать несколько запросов на выборку и обновление данных
 
-### Ответ:
-1) **Установка в Docker под ubuntu 20.04**
- ```
-# docker pull mongo
+### Решение:
+1) **Скачивание образа mongo 4.4.17**
+```
+# docker pull mongo:4.4.17
 # docker images
-mongo   latest  b70536aeb250    2 weeks ago    695MB
+mongo 4.4.17 af86910c16da 2 weeks ago 438MB
+```
+
+2) **Запуск контейнера**
+```
 # mkdir -p ~/mongodata
-# docker run -it -v ~/mongodata:/data/db -p 27017:27017 --name mongodb -d mongo
+# docker run -it -v ~/mongodata:/data/db -p 27017:27017 --name mongodb -d mongo:4.4.17
 # docker ps
-95998d03c0a3 mongo "docker-entrypoint.s…" 7 seconds ago Up 6 seconds 0.0.0.0:27017->27017/tcp, :::27017->27017/tcp mongodb
+85dbd4a12079 mongo:4.4.17 "docker-entrypoint.s…" 8 seconds ago Up 7 seconds 0.0.0.0:27017->27017/tcp, :::27017->27017/tcp mongodb
+```
+
+3) **Создание пользователя**
+```
+# mongo -host localhost -port 27017
+use hw02
+db.createUser({
+    user: "user",
+    pwd: "passme",
+    roles: [
+        {role: "readWrite", db: "hw02"}
+    ],
+    passwordDigestor: "server"
+})
+```
+
+4) **Импорт тестовых данных**
+```
+# curl -o ~/mongodata/customers.json https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/02_mongo/mall_customers.json
+# mongoimport --host=localhost --port=27017 --type json -d hw02 -c customers ~/mongodata/customers.json -u user --jsonArray
+```
+
+5) **Запись данных**
+```
+# mongo --username user --password --authenticationDatabase hw02 --host localhost --port 27017
+use hw02
+db.customers.insertOne({"customer_id": "0201", "genre": "Male", "age": 31, "annual_income": 132, "spending_score": 85});
+db.customers.insertMany([
+    {"customer_id": "0202", "genre": "Male", "age": 32, "annual_income": 133, "spending_score": 86},
+    {"customer_id": "0203", "genre": "Male", "age": 33, "annual_income": 134, "spending_score": 87},
+]);
+```
+
+6) **Чтение данных**
+```
+use hw02
+db.customers.find().pretty()
+```
+
+7) **Обновление данных**
+```
+use hw02
+db.customers.updateOne({"customer_id": "0201"}, {$set: {"genre": "Female"}})
+db.customers.updateMany({"customer_id": "0202"}, {$set: {"genre": "Female"}})
+```
+
+8) **Создание индекса и поиск**
+```
+db.customers.createIndex({"customer_id": "text"})
+db.customers.find({$text: {$search: "0201" }  } )
+```
+
+9) **Удаление данных**
+```
+use hw02
+db.customers.deleteMany({customer_id : "0202"})
+db.customers.drop()
+db.dropDatabase()
+show dbs
 ```
