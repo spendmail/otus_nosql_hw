@@ -67,7 +67,17 @@ db.customers.updateOne({"customer_id": "0201"}, {$set: {"genre": "Female"}})
 db.customers.updateMany({"customer_id": "0202"}, {$set: {"genre": "Female"}})
 ```
 
-8) **Создание индекса и поиск**
+8) **Группировка данных с подсчетом количества**
+```
+use hw02
+db.customers.aggregate([
+    {"$group" : {_id:"$genre", count:{$sum:1}}}
+])
+> { "_id" : "Female", "count" : 112 }
+> { "_id" : "Male", "count" : 88 }
+```
+
+9) **Создание индекса и поиск**
 ```
 db.customers.explain().find({"customer_id": "0200"})
 db.customers.createIndex({"customer_id": 1}, {unique: true})
@@ -79,7 +89,7 @@ db.customers.explain().find({"customer_id": "0200"})
 >             "stage" : "IXSCAN",
 ```
 
-9) **Удаление данных**
+10) **Удаление данных**
 ```
 use hw02
 db.customers.deleteMany({customer_id : "0202"})
