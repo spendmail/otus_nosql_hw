@@ -1,0 +1,138 @@
+version: '3.7'
+
+networks:
+  mongo_cluster_network:
+    driver: bridge
+
+services:
+
+  config_server_1:
+    image: mongo:4.4.17
+    container_name: config_server_1
+    hostname: config_server_1
+    command: mongod --port 27017 --configsvr --replSet RScfg
+    links:
+      - shard_1_server_1
+      - shard_2_server_1
+      - shard_3_server_1
+    networks:
+      - mongo_cluster_network
+
+  config_server_2:
+    image: mongo:4.4.17
+    container_name: config_server_2
+    hostname: config_server_2
+    command: mongod --port 27017 --configsvr --replSet RScfg
+    links:
+      - config_server_1
+    networks:
+      - mongo_cluster_network
+
+  config_server_3:
+    image: mongo:4.4.17
+    container_name: config_server_3
+    hostname: config_server_3
+    command: mongod --port 27017 --configsvr --replSet RScfg
+    links:
+      - config_server_2
+    networks:
+      - mongo_cluster_network
+
+  balancer_1:
+    image: mongo:4.4.17
+    container_name: balancer_1
+    hostname: balancer_1
+    command: mongos --port 27017 --configdb RScfg/config_server_1:27017,config_server_2:27017,config_server_3:27017 --bind_ip_all
+    networks:
+      - mongo_cluster_network
+
+  balancer_2:
+    image: mongo:4.4.17
+    container_name: balancer_2
+    hostname: balancer_2
+    command: mongos --port 27017 --configdb RScfg/config_server_1:27017,config_server_2:27017,config_server_3:27017 --bind_ip_all
+    links:
+      - balancer_1
+    networks:
+      - mongo_cluster_network
+
+  shard_1_server_1:
+    image: mongo:4.4.17
+    container_name: shard_1_server_1
+    hostname: shard_1_server_1
+    command: mongod --port 27017 --shardsvr --replSet RS1
+    links:
+      - shard_1_server_2
+      - shard_1_server_3
+    networks:
+      - mongo_cluster_network
+
+  shard_1_server_2:
+    image: mongo:4.4.17
+    container_name: shard_1_server_2
+    hostname: shard_1_server_2
+    command: mongod --port 27017 --shardsvr --replSet RS1
+    networks:
+      - mongo_cluster_network
+
+  shard_1_server_3:
+    image: mongo:4.4.17
+    container_name: shard_1_server_3
+    hostname: shard_1_server_3
+    command: mongod --port 27017 --shardsvr --replSet RS1
+    networks:
+      - mongo_cluster_network
+
+  shard_2_server_1:
+    image: mongo:4.4.17
+    container_name: shard_2_server_1
+    hostname: shard_2_server_1
+    command: mongod --port 27017 --shardsvr --replSet RS2
+    links:
+      - shard_2_server_2
+      - shard_2_server_3
+    networks:
+      - mongo_cluster_network
+
+  shard_2_server_2:
+    image: mongo:4.4.17
+    container_name: shard_2_server_2
+    hostname: shard_2_server_2
+    command: mongod --port 27017 --shardsvr --replSet RS2
+    networks:
+      - mongo_cluster_network
+
+  shard_2_server_3:
+    image: mongo:4.4.17
+    container_name: shard_2_server_3
+    hostname: shard_2_server_3
+    command: mongod --port 27017 --shardsvr --replSet RS2
+    networks:
+      - mongo_cluster_network
+
+  shard_3_server_1:
+    image: mongo:4.4.17
+    container_name: shard_3_server_1
+    hostname: shard_3_server_1
+    command: mongod --port 27017 --shardsvr --replSet RS3
+    links:
+      - shard_3_server_2
+      - shard_3_server_3
+    networks:
+      - mongo_cluster_network
+
+  shard_3_server_2:
+    image: mongo:4.4.17
+    container_name: shard_3_server_2
+    hostname: shard_3_server_2
+    command: mongod --port 27017 --shardsvr --replSet RS3
+    networks:
+      - mongo_cluster_network
+
+  shard_3_server_3:
+    image: mongo:4.4.17
+    container_name: shard_3_server_3
+    hostname: shard_3_server_3
+    command: mongod --port 27017 --shardsvr --replSet RS3
+    networks:
+      - mongo_cluster_network
