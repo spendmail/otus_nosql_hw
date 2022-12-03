@@ -10,7 +10,7 @@ services:
     image: mongo:4.4.17
     container_name: config_server_1
     hostname: config_server_1
-    command: mongod --port 27017 --configsvr --replSet RScfg --dbpath /home/mongo/config_server_1
+    command: mongod --port 27017 --configsvr --replSet RScfg --dbpath /home/mongo/config_server_1 --auth --keyFile /home/mongo/config_server_1/keyfile
     links:
       - shard_1_server_1
       - shard_2_server_1
@@ -24,7 +24,7 @@ services:
     image: mongo:4.4.17
     container_name: config_server_2
     hostname: config_server_2
-    command: mongod --port 27017 --configsvr --replSet RScfg --dbpath /home/mongo/config_server_2
+    command: mongod --port 27017 --configsvr --replSet RScfg --dbpath /home/mongo/config_server_2 --auth --keyFile /home/mongo/config_server_2/keyfile
     links:
       - config_server_1
     networks:
@@ -36,7 +36,7 @@ services:
     image: mongo:4.4.17
     container_name: config_server_3
     hostname: config_server_3
-    command: mongod --port 27017 --configsvr --replSet RScfg --dbpath /home/mongo/config_server_3
+    command: mongod --port 27017 --configsvr --replSet RScfg --dbpath /home/mongo/config_server_3 --auth --keyFile /home/mongo/config_server_3/keyfile
     links:
       - config_server_2
     networks:
@@ -66,7 +66,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_1_server_1
     hostname: shard_1_server_1
-    command: mongod --port 27017 --shardsvr --replSet RS1 --dbpath /home/mongo/shard_1_server_1
+    command: mongod --port 27017 --shardsvr --replSet RS1 --dbpath /home/mongo/shard_1_server_1 --auth --keyFile /home/mongo/shard_1_server_1/keyfile
     links:
       - shard_1_server_2
       - shard_1_server_3
@@ -79,7 +79,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_1_server_2
     hostname: shard_1_server_2
-    command: mongod --port 27017 --shardsvr --replSet RS1 --dbpath /home/mongo/shard_1_server_2
+    command: mongod --port 27017 --shardsvr --replSet RS1 --dbpath /home/mongo/shard_1_server_2 --auth --keyFile /home/mongo/shard_1_server_2/keyfile
     networks:
       - mongo_cluster_network
     volumes:
@@ -89,7 +89,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_1_server_3
     hostname: shard_1_server_3
-    command: mongod --port 27017 --shardsvr --replSet RS1 --dbpath /home/mongo/shard_1_server_3
+    command: mongod --port 27017 --shardsvr --replSet RS1 --dbpath /home/mongo/shard_1_server_3 --auth --keyFile /home/mongo/shard_1_server_3/keyfile
     networks:
       - mongo_cluster_network
     volumes:
@@ -99,7 +99,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_2_server_1
     hostname: shard_2_server_1
-    command: mongod --port 27017 --shardsvr --replSet RS2 --dbpath /home/mongo/shard_2_server_1
+    command: mongod --port 27017 --shardsvr --replSet RS2 --dbpath /home/mongo/shard_2_server_1 --auth --keyFile /home/mongo/shard_2_server_1/keyfile
     links:
       - shard_2_server_2
       - shard_2_server_3
@@ -112,7 +112,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_2_server_2
     hostname: shard_2_server_2
-    command: mongod --port 27017 --shardsvr --replSet RS2 --dbpath /home/mongo/shard_2_server_2
+    command: mongod --port 27017 --shardsvr --replSet RS2 --dbpath /home/mongo/shard_2_server_2 --auth --keyFile /home/mongo/shard_2_server_2/keyfile
     networks:
       - mongo_cluster_network
     volumes:
@@ -122,7 +122,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_2_server_3
     hostname: shard_2_server_3
-    command: mongod --port 27017 --shardsvr --replSet RS2 --dbpath /home/mongo/shard_2_server_3
+    command: mongod --port 27017 --shardsvr --replSet RS2 --dbpath /home/mongo/shard_2_server_3 --auth --keyFile /home/mongo/shard_2_server_3/keyfile
     networks:
       - mongo_cluster_network
     volumes:
@@ -132,7 +132,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_3_server_1
     hostname: shard_3_server_1
-    command: mongod --port 27017 --shardsvr --replSet RS3 --dbpath /home/mongo/shard_3_server_1
+    command: mongod --port 27017 --shardsvr --replSet RS3 --dbpath /home/mongo/shard_3_server_1 --auth --keyFile /home/mongo/shard_3_server_1/keyfile
     links:
       - shard_3_server_2
       - shard_3_server_3
@@ -145,7 +145,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_3_server_2
     hostname: shard_3_server_2
-    command: mongod --port 27017 --shardsvr --replSet RS3 --dbpath /home/mongo/shard_3_server_2
+    command: mongod --port 27017 --shardsvr --replSet RS3 --dbpath /home/mongo/shard_3_server_2 --auth --keyFile /home/mongo/shard_3_server_2/keyfile
     networks:
       - mongo_cluster_network
     volumes:
@@ -155,7 +155,7 @@ services:
     image: mongo:4.4.17
     container_name: shard_3_server_3
     hostname: shard_3_server_3
-    command: mongod --port 27017 --shardsvr --replSet RS3 --dbpath /home/mongo/shard_3_server_3
+    command: mongod --port 27017 --shardsvr --replSet RS3 --dbpath /home/mongo/shard_3_server_3 --auth --keyFile /home/mongo/shard_3_server_3/keyfile
     networks:
       - mongo_cluster_network
     volumes:
