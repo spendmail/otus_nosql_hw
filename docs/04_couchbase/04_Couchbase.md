@@ -26,28 +26,60 @@ Creating cb-node-3 ... done
 
 
 
-1.2) **Пер**
+1.2) **Создаем новый кластер**
+ - Создавать кластер будем через веб, согласно рекомендации
+ - Веб доступен по адресу https://localhost:18091/ (сконфигурировано в docker-compose.yaml) 
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/1.png)
 
 
 
 
-qwerty) **qwerty**
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
-<details>
-<summary>Output</summary>
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
-</details>
+1.3) **Задаем имя кластера, логин и пароль администратора**
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/2.png)
 
 
-####################################################################################
+
+1.4) **Соглашаемся с условиями использования**
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/3.png)
 
 
-qwerty) **qwerty**
-```
-qwerty
-```
-<details>
-<summary>Output</summary><pre>
-qwerty
-</pre></details>
+
+
+1.5) **Конфигурируем первую ноду**
+ - определяем ее как ноду для хранения данных
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/4.png)
+
+
+
+1.6) **Конфигурируем вторую ноду**
+- определяем ее как ноду для хранения данных
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/5.png)
+
+
+
+1.7) **Конфигурируем третью ноду**
+- определяем ее как ноду для хранения данных
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/6.png)
+
+
+
+1.8) **Конфигурируем четвертую ноду**
+- определяем ее как ноду для работы индексов, обработки запросов, поиска, аналитики и бэкапа
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/7.png)
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/8.png)
+
+
+
+1.7) **Выполняем ребалансировку данных**
+
+![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/9.png)
+
 
