@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  cb-node-1:
+    container_name: cb-node-1
+    hostname: cb-node-1.local
+    image: couchbase:enterprise-7.1.0
+    ports:
+      - "8091:8091"
+      - "18091:18091"
+
+  cb-node-2:
+    container_name: cb-node-2
+    hostname: cb-node-2.local
+    image: couchbase:enterprise-7.1.0
+
+  cb-node-3:
+    container_name: cb-node-3
+    hostname: cb-node-3.local
+    image: couchbase:enterprise-7.1.0
+
+  cb-node-4:
+    container_name: cb-node-4
+    hostname: cb-node-4.local
+    image: couchbase:enterprise-7.1.0
