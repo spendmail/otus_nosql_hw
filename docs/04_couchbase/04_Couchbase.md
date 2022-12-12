@@ -251,15 +251,8 @@ doc_10               CAS=0x173020f5f5360000, Flags=0x0, Size=36, Datatype=0x00
 
 
 
-3.5) **Выполняем ребалансировку**
 
-![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/9.png)
-
-
-
-
-
-3.3) **Выполняем graceful failover для третьей ноды**
+3.5) **Выполняем graceful failover для третьей ноды**
 
 ![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/10.png)
 
@@ -268,7 +261,7 @@ doc_10               CAS=0x173020f5f5360000, Flags=0x0, Size=36, Datatype=0x00
 
 
 
-3.4) **Запрашиваем данные**
+3.6) **Запрашиваем данные**
 ```
 docker-compose exec cb-node-1 bash -c "
 cbc cat doc_1 -u admin -P passme -U couchbase://localhost/population --scope='population_scope' --collection='us_population' ;
@@ -312,7 +305,7 @@ doc_10               CAS=0x173021bb92540000, Flags=0x0, Size=36, Datatype=0x00
 
 
 
-3.5) **Выполняем hard failover для второй ноды**
+3.7) **Выполняем hard failover для второй ноды**
 
 ![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/12.png)
 
@@ -320,7 +313,7 @@ doc_10               CAS=0x173021bb92540000, Flags=0x0, Size=36, Datatype=0x00
 
 
 
-3.6) **Запрашиваем данные**
+3.8) **Запрашиваем данные**
 ```
 docker-compose exec cb-node-1 bash -c "
 cbc cat doc_1 -u admin -P passme -U couchbase://localhost/population --scope='population_scope' --collection='us_population' ;
@@ -359,7 +352,7 @@ doc_10               CAS=0x173021bb92540000, Flags=0x0, Size=36, Datatype=0x00
 
 
 
-3.7) **Возвращаем ноды в работу и выполняем ребалансировку**
+3.9) **Возвращаем ноды в работу и выполняем ребалансировку**
 
 ![This is an image](https://raw.githubusercontent.com/spendmail/otus_nosql_hw/main/docs/04_couchbase/screenshots/14.png)
 
