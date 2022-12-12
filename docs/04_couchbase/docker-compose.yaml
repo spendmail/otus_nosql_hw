@@ -8,18 +8,26 @@ services:
     ports:
       - "8091:8091"
       - "18091:18091"
+    volumes:
+      - /tmp/couchbase/cb-node-1:/opt/couchbase/var
 
   cb-node-2:
     container_name: cb-node-2
     hostname: cb-node-2.local
     image: couchbase:enterprise-7.1.0
+    volumes:
+      - /tmp/couchbase/cb-node-2:/opt/couchbase/var
 
   cb-node-3:
     container_name: cb-node-3
     hostname: cb-node-3.local
     image: couchbase:enterprise-7.1.0
+    volumes:
+      - /tmp/couchbase/cb-node-3:/opt/couchbase/var
 
   cb-node-4:
     container_name: cb-node-4
     hostname: cb-node-4.local
     image: couchbase:enterprise-7.1.0
+    volumes:
+      - /tmp/couchbase/cb-node-4:/opt/couchbase/var
